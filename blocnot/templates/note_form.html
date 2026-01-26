@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>Заметка</title></head>
+<body style="font-family: sans-serif; padding: 40px; background-color: #f4f4f9;">
+
+    <div style="background: white; max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <h2>
+            {% if form.instance.pk %}
+                Редактирование заметки ✏️
+            {% else %}
+                Новая заметка 📝
+            {% endif %}
+        </h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                Сохранить
+            </button>
+        </form>
+
+        <br>
+        <a href="{% url 'index' %}" style="color: #666;">← Назад к списку</a>
+    </div>
+
+</body>
+</html>

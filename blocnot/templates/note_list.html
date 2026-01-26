@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мой Блокнот</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+
+        /* Кнопки */
+        .btn { text-decoration: none; padding: 10px 15px; border-radius: 5px; color: white; font-weight: bold; }
+        .btn-green { background-color: #28a745; }
+        .btn-blue { background-color: #17a2b8; }
+
+        /* Сетка заметок */
+        .notes-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+
+        /* Карточка заметки */
+        .note-card {
+            background: white;
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+        .note-card:hover { transform: translateY(-5px); }
+
+        .note-category {
+            background: #e0e0e0; font-size: 0.8em; padding: 2px 8px;
+            border-radius: 10px; display: inline-block; margin-bottom: 10px; color: #555;
+        }
+        .note-date { font-size: 0.75em; color: #999; margin-top: 10px; }
+
+        .actions { margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
+        .actions a { text-decoration: none; margin-right: 10px; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📒 Мои Заметки</h1>
+        <div>
+            <a href="{% url 'add_note' %}" class="btn btn-green">+ Заметка</a>
+            <a href="{% url 'add_category' %}" class="btn btn-blue">+ Категория</a>
+        </div>
+    </div>
+
+    <div class="notes-grid">
+        {% for note in notes %}
+            <div class="note-card">
+                <div>
+                    {% if note.category %}
+                        <span class="note-category">{{ note.category.name }}</span>
+                    {% endif %}
+
+                    <h3>{{ note.title }}</h3>
+
+                    <!-- linebreaksbr сохраняет переносы строк. truncatewords обрезает длинный текст -->
+                    <p>{{ note.text|linebreaksbr|truncatewords:20 }}</p>
+                </div>
+
+                <div>
+                    <div class="note-date">Обновлено: {{ note.updated_at|date:"d.m.Y H:i" }}</div>
+
+                    <div class="actions">
+                        <a href="{% url 'edit_note' note.pk %}" title="Редактировать">✏️</a>
+                        <a href="{% url 'delete_note' note.pk %}" title="Удалить" style="color: red;">🗑</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Блокнот пуст. Создайте первую запись!</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

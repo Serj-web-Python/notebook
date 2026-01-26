@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Удаление</title></head>
+<body style="font-family: sans-serif; padding: 50px; text-align: center;">
+
+    <div style="background: #fff0f0; display: inline-block; padding: 30px; border: 1px solid red; border-radius: 10px;">
+        <h2 style="color: #c00;">Удалить заметку?</h2>
+        <p>Вы собираетесь удалить: <strong>"{{ object.title }}"</strong></p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" style="background: red; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">
+                Да, удалить
+            </button>
+        </form>
+
+        <br>
+        <a href="{% url 'index' %}">Отмена</a>
+    </div>
+
+</body>
+</html>
