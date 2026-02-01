@@ -40,6 +40,27 @@
     </style>
 </head>
 <body>
+<div style="background: #333; color: white; padding: 10px; display: flex; justify-content: space-between;">
+
+        <!-- Проверка: Аноним или Пользователь? -->
+        {% if user.is_authenticated %}
+            <span>Привет, <b>{{ user.username }}</b>! 👋</span>
+
+            <!-- Кнопка Выход -->
+            <!-- Мы используем форму для выхода, так безопаснее в новых версиях Django -->
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="background: red; border: none; color: white; cursor: pointer;">Выйти</button>
+            </form>
+        {% else %}
+            <span>Гость</span>
+            <div>
+                <a href="{% url 'login' %}" style="color: white;">Войти</a>
+                <a href="{% url 'signup' %}" style="color: white;">Регистрация</a>
+            </div>
+        {% endif %}
+
+    </div>
 
     <div class="header">
         <h1>📒 Мои Заметки</h1>

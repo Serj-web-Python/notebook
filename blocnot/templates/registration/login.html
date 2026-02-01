@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вход</title>
+</head>
+<body>
+    <div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
+        <h2>🔐 Вход в систему</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <!-- form.as_p нарисует поля Логин и Пароль -->
+            {{ form.as_p }}
+            <button type="submit" style="background: blue; color: white; padding: 5px 15px;">Войти</button>
+        </form>
+        <div class="register-link">
+            Нет аккаунта?
+            <a href="{% url 'signup' %}">
+                Зарегистрироваться
+            </a>
+        </div>
+    </div>
+</body>
+</html>

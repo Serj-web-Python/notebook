@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User  # <--- 1. Импортируем модель Пользователя
+
 
 
 class Category(models.Model):
@@ -24,6 +26,9 @@ class Note(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Обновлено")
 
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Категория")
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
+
 
     def __str__(self):
         return self.title
