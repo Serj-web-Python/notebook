@@ -17,9 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+# --- НАСТРОЙКИ АДМИНКИ ---
+# 1. Текст в шапке (вместо Django administration)
+admin.site.site_header = "Управление Блокнотом"
+
+# 2. Текст во вкладке браузера (Title)
+admin.site.site_title = "Панель администратора"
+
+# 3. Текст на главной странице админки (над списком моделей)
+admin.site.index_title = "Добро пожаловать, Шеф!"
+
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('manager-panel/', admin.site.urls),
     path('', include('blocnot.urls')),
 
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),  #Эта одна строчка автоматически подключает готовые пути Django: /login/, /logout/, /password_change/ и т.д.
+                        #Нам нужно было только создать шаблоны (мы создали login.html).
 ]
